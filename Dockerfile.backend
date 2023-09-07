@@ -1,0 +1,20 @@
+FROM python:3.10-alpine
+
+WORKDIR /app
+
+RUN python -m venv venv
+RUN . ./venv/bin/activate || (echo ERROR  && exit 1)
+
+ENV PATH="/app/venv/bin:$PATH"
+
+COPY ./requirements.txt ./
+RUN pip install -r requirements.txt
+
+COPY ./templates ./templates
+COPY ./app.py ./
+
+RUN flask db init 
+
+CMD sleep 10 && flask db migrate && flask db upgrade && python app.py
+
+

@@ -1,0 +1,26 @@
+version: "3.9"
+services:
+  database:
+    image: todo_psql
+    build: 
+      context: .
+      dockerfile: Dockerfile.psql
+    environment:
+      POSTGRES_PASSWORD: admin
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  flask:
+    depends_on:
+      - database
+    image: todo_backend
+    build: 
+      context: .
+      dockerfile: Dockerfile.backend
+    ports:
+      - "3000:3000"
+    # environment:
+    # volumes: 
+
+volumes:
+  pgdata: {}
