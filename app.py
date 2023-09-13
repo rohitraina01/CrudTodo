@@ -3,10 +3,17 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 import sys
 
+from os import environ
+
 app = Flask(__name__)
 # Modify this string with the appropriate database connection settings you have set up in your machine.
 # app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://postgres:admin@localhost:5432/tododb"
-app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://postgres:admin@database:5432/tododb"
+app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://postgres:admin@postgres-db-service:5000/tododb"
+
+# app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://postgres:admin@localhost:5432/tododb"
+
+# app.config['SQLALCHEMY_DATABASE_URI'] = environ["DATABASE_URL"]
+
 
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)

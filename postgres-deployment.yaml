@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: postgres-db
+  # namespace: my-namespace
+spec:
+  replicas: 1  # Typically, one database instance
+  selector:
+    matchLabels:
+      app: postgres-db
+  template:
+    metadata:
+      labels:
+        app: postgres-db
+    spec:
+      containers:
+        - name: postgres-db
+          image: todo_psql
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 5432  # Default PostgreSQL port
+          env:
+            - name: POSTGRES_USER
+              value: postgres  # Update with your desired PostgreSQL username
+            - name: POSTGRES_PASSWORD
+              value: admin  # Update with your desired PostgreSQL password
+            - name: POSTGRES_DB
+              value: tododb  # Update with your desired database name

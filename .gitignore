@@ -3,3 +3,5 @@ migrations/
 venv/
 .bash
 notes.txt
+dns-test-pod.yaml
+Dockerfile.singlecontainer
